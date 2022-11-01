@@ -11,9 +11,9 @@ export default class InputTodo extends Component {
       [e.target.name]: e.target.value,
     });
   };
+
   onSubmit = (e) => {
     e.preventDefault();
-
     if (this.state.title.trim()) {
       this.props.addTodo(this.state.title);
       this.setState({
