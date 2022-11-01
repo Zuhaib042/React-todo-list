@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 
 export default class InputTodo extends Component {
@@ -8,28 +9,34 @@ export default class InputTodo extends Component {
   onChange = (e) => {
     console.log(e.target.value);
     this.setState({
-      title: e.target.value,
+      [e.target.name]: e.target.value,
     });
   };
   onSubmit = (e) => {
     e.preventDefault();
     console.log(this.state.title);
-    this.props.addTodo(this.state.title);
-    this.setState({
-      title: '',
-    });
+    if (this.state.title.trim()) {
+      this.props.addTodo(this.state.title);
+      this.setState({
+        title: '',
+      });
+    } else {
+      alert('Please write them');
+    }
   };
 
   render() {
     return (
-      <form action="" onSubmit={this.onSubmit}>
+      <form action="" onSubmit={this.onSubmit} className="form-container">
         <input
+          className="input-text"
           type="text"
           placeholder="Add todo"
+          name="title"
           onChange={this.onChange}
           value={this.state.title}
         />
-        <button className="py-1 px-4 bg-indigo-500 text-white">Submit</button>
+        <button className="input-submit">Submit</button>
       </form>
     );
   }

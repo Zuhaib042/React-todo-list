@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import Header from './Header';
 import TodoList from './TodoList';
@@ -6,23 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 export default class TodoContainer extends Component {
   state = {
-    todos: [
-      {
-        id: uuidv4(),
-        title: 'Setup development environment',
-        completed: false,
-      },
-      {
-        id: uuidv4(),
-        title: 'Develop website and add content',
-        completed: false,
-      },
-      {
-        id: uuidv4(),
-        title: 'Deploy to live server',
-        completed: false,
-      },
-    ],
+    todos: [],
   };
 
   handleChange = (id) => {
@@ -61,22 +46,31 @@ export default class TodoContainer extends Component {
     });
   };
 
+  setUpdate = (updatedTitle, id) => {
+    this.setState({
+      todos: this.state.todos.map((todo) => {
+        if (todo.id === id) {
+          todo.title = updatedTitle;
+        }
+        return todo;
+      }),
+    });
+  };
+
   render() {
     return (
-      <>
-        <Header />
-        <InputTodo addTodo={this.addTodo} />
-        {/* <ul>
-          {this.state.todos.map((todo) => (
-            <li key={todo.id}>{todo.title}</li>
-          ))}
-        </ul> */}
-        <TodoList
-          data={this.state.todos}
-          handleChangeProps={this.handleChange}
-          handleDelete={this.handleDelete}
-        />
-      </>
+      <div className="container">
+        <div className="inner">
+          <Header />
+          <InputTodo addTodo={this.addTodo} />
+          <TodoList
+            data={this.state.todos}
+            handleChangeProps={this.handleChange}
+            handleDelete={this.handleDelete}
+            setUpdate={this.setUpdate}
+          />
+        </div>
+      </div>
     );
   }
 }
