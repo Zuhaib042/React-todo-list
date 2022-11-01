@@ -20,6 +20,11 @@ export default class TodoItem extends Component {
       });
     }
   };
+
+  componentWillUnmount() {
+    console.log('Cleaning up...');
+  }
+
   render() {
     const { completed, id, title } = this.props.todo;
     const completedStyle = {

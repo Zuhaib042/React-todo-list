@@ -25,7 +25,6 @@ export default class TodoContainer extends Component {
   };
 
   handleDelete = (id) => {
-    // console.log('Clicked', id);
     this.setState({
       todos: [
         ...this.state.todos.filter((todo) => {
@@ -56,6 +55,21 @@ export default class TodoContainer extends Component {
       }),
     });
   };
+
+  componentDidMount() {
+    const loadedTodos = JSON.parse(localStorage.getItem('todos'));
+    if (loadedTodos) {
+      this.setState({
+        todos: loadedTodos,
+      });
+    }
+  }
+  componentDidUpdate(prevState, prevProps) {
+    if (prevState.todos !== this.state.todos) {
+      const temp = this.state.todos;
+      localStorage.setItem('todos', JSON.stringify(temp));
+    }
+  }
 
   render() {
     return (

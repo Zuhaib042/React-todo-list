@@ -7,14 +7,13 @@ export default class InputTodo extends Component {
   };
 
   onChange = (e) => {
-    console.log(e.target.value);
     this.setState({
       [e.target.name]: e.target.value,
     });
   };
   onSubmit = (e) => {
     e.preventDefault();
-    console.log(this.state.title);
+
     if (this.state.title.trim()) {
       this.props.addTodo(this.state.title);
       this.setState({
